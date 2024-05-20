@@ -1,7 +1,7 @@
 import Button from "./Button";
 import InputBox from "./Input";
 
-function UserSignUpForm(){
+function ArtisanSignUpForm(){
     return (
         <div className="flex-1 min-h-full px-1 w-full lg:w-[40rem] m-auto py-12 lg:px-8 lg:-mt-[-10rem]">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -41,7 +41,7 @@ function UserSignUpForm(){
             </form>
             <p className="mt-10 text-lg text-center text-gray-500">
                Already have an account?{' '}
-              <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+              <a href="#" className="font-semibold leading-6 text-green-800 hover:text-green-600">
                 Sign In.
               </a>
             </p>
@@ -50,4 +50,4 @@ function UserSignUpForm(){
     )
 }
 
-export default UserSignUpForm;
+export default ArtisanSignUpForm;

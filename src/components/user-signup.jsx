@@ -35,13 +35,13 @@ function UserSignUpForm(){
                     <InputBox for="Confirm Password" Label="Confirm Password" type="password" name="confirm_password" id="confrimPassword"/>
                 </div>
               </div>
-              <div>
-                <Button type="submit" Text="Submit"/>
+              <div className="flex justify-center">
+                <Button type="submit" text="Submit" style={{width: "10rem", height: "3rem" }}/>
               </div>
             </form>
             <p className="mt-10 text-lg text-center text-gray-500">
                Already have an account?{' '}
-              <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+              <a href="#" className="font-semibold leading-6 text-green-800 hover:text-green-600">
                 Sign In.
               </a>
             </p>

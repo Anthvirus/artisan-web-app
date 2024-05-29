@@ -58,8 +58,8 @@ function submit(event){
                     </a>
               </div>
   
-              <div>
-                <Button type="submit" Text="Sign In" onClick={submit}/>
+              <div className="flex justify-center ">
+                <Button type="submit" text="Sign In" onClick={submit} style={{width: "10rem", height: "3rem" }}/>
               </div>
             </form>
   

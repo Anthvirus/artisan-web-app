@@ -2,7 +2,10 @@ import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {Link} from "react-router-dom";
-import services from '../components/services';
+import SearchBar from '../components/searchcomponent';
+import FindArtisanComponent from '../components/findartisan-component';
+import Carpenter from '../assets/images/carpenter.jpg'
+// import services from '../components/services';
 
 const user = {
     firstName: 'Ikechukwu',
@@ -20,6 +23,13 @@ const user = {
     { name: 'Settings', href: '#' },
     { name: 'Sign out', href: '#' },
   ]
+  const artisan = {
+        name: 'James Dwight',
+        rating: 4.8,
+        service: "Carpentry",
+        availability: true,
+        image: Carpenter
+      }
   
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -179,9 +189,16 @@ export default function ArtisanFind(){
             </>
           )}
         </Disclosure>
-        <div className='w-5/6 h-screen mx-auto mt-2 bg-gray-200 min-h-[40rem] rounded-xl'>
-        <div className='flex'>
+        <div className='w-5/6 h-screen mx-auto mt-2 bg-gray-200 min-h-[40rem] rounded-xl px-3'>
+        <div className='flex flex-col'>
           <h2 className='mx-auto mt-4 text-4xl font-bold'>Find Carpenters</h2>
+          <div>
+            <SearchBar/>
+          </div>
+        </div>
+        <div className='grid grid-cols-2 gap-x-2'>
+          <FindArtisanComponent name={artisan.name} image={Carpenter} service={artisan.service} rating={artisan.rating}/>
+          <FindArtisanComponent name={artisan.name} image={Carpenter} service={artisan.service} rating={artisan.rating}/>
         </div>
         </div>
         </div>

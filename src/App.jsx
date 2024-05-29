@@ -6,10 +6,7 @@ import ArtisanSignInPage from "./pages/artisan-signinpage.jsx";
 import UserHomePage from "./pages/user-homepage.jsx";
 import UserConnectionPage from "./pages/user-connectionpage.jsx";
 import SectionPage from "./pages/sectionpage.jsx";
-<<<<<<< HEAD
-import ArtisanProfilePage from "./pages/artisanprofilepage.jsx";
-=======
->>>>>>> cd0267bafe6ebe88e1ac320589be7b6f6bc88d42
+import ArtisanFind from "./pages/findartisanpage.jsx";
 
 function App() {
   return (
@@ -22,10 +19,7 @@ function App() {
             <Route path="/artisansignin" element={<ArtisanSignInPage/>}/>
             <Route path="/usersignup" element={<UserSignupPage/>}/>
             <Route path="/usersignin" element={<UserSignInPage/>}/>
-<<<<<<< HEAD
-            <Route path="/artisanprofile" element={<ArtisanProfilePage/>}/>
-=======
->>>>>>> cd0267bafe6ebe88e1ac320589be7b6f6bc88d42
+            <Route path="/findartisan" element={<ArtisanFind/>}/>
         </Routes>
     </BrowserRouter>
   )

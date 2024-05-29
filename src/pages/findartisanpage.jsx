@@ -2,10 +2,14 @@ import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {Link} from "react-router-dom";
+<<<<<<< HEAD
 import SearchBar from '../components/searchcomponent';
 import FindArtisanComponent from '../components/findartisan-component';
 import Carpenter from '../assets/images/carpenter.jpg'
 // import services from '../components/services';
+=======
+import services from '../components/services';
+>>>>>>> 3644ee05b101392e7b0d3ee03bf8de6adef75393
 
 const user = {
     firstName: 'Ikechukwu',
@@ -189,6 +193,7 @@ export default function ArtisanFind(){
             </>
           )}
         </Disclosure>
+<<<<<<< HEAD
         <div className='w-5/6 h-screen mx-auto mt-2 bg-gray-200 min-h-[40rem] rounded-xl px-3'>
         <div className='flex flex-col'>
           <h2 className='mx-auto mt-4 text-4xl font-bold'>Find Carpenters</h2>
@@ -199,6 +204,11 @@ export default function ArtisanFind(){
         <div className='grid grid-cols-2 gap-x-2'>
           <FindArtisanComponent name={artisan.name} image={Carpenter} service={artisan.service} rating={artisan.rating}/>
           <FindArtisanComponent name={artisan.name} image={Carpenter} service={artisan.service} rating={artisan.rating}/>
+=======
+        <div className='w-5/6 h-screen mx-auto mt-2 bg-gray-200 min-h-[40rem] rounded-xl'>
+        <div className='flex'>
+          <h2 className='mx-auto mt-4 text-4xl font-bold'>Find Carpenters</h2>
+>>>>>>> 3644ee05b101392e7b0d3ee03bf8de6adef75393
         </div>
         </div>
         </div>

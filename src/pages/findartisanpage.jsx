@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {Link} from "react-router-dom";
-import ArtisanProfile from "../components/artisan-profile.jsx";
+import services from '../components/services';
 
 const user = {
     firstName: 'Ikechukwu',
@@ -25,7 +25,7 @@ const user = {
     return classes.filter(Boolean).join(' ')
   }
   
-export default function ArtisanProfilePage(){
+export default function ArtisanFind(){
     return (
         <>
             <div className='min-h-screen bg-gray-100'>
@@ -179,7 +179,11 @@ export default function ArtisanProfilePage(){
             </>
           )}
         </Disclosure>
-        <ArtisanProfile/>
+        <div className='w-5/6 h-screen mx-auto mt-2 bg-gray-200 min-h-[40rem] rounded-xl'>
+        <div className='flex'>
+          <h2 className='mx-auto mt-4 text-4xl font-bold'>Find Carpenters</h2>
+        </div>
+        </div>
         </div>
         </>
     )

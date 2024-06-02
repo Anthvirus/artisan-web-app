@@ -6,7 +6,7 @@ import Connections from '../components/connections';
 import user from '../components/user';
 
 const navigation = [
-  { name: 'Home', href: '/', current: false},
+  { name: 'Home', href: '/home', current: false},
   { name: 'Connections', href: '/connections', current: true},
 ]
 const userNavigation = [
@@ -42,7 +42,7 @@ function UserConnectionPage() {
                         {navigation.map((item) => (
                           <Link
                             key={item.name}
-                            to={item.to}
+                            to={item.href}
                             className={classNames(
                               item.current
                                 ? 'bg-gray-900 text-white'

@@ -3,32 +3,35 @@ import Button from "./Button";
 import InputBox from "./Input";
 
 function UserSignInForm(){
-  const [isValid, setValidity] = useState(true)
-  const [input, updateInput] = useState({
-      email: "",
-      password:""
-  })
-  
-  const password ="Me5#5nhg";
-  const email = "maduneme002@gmail.com"
-  
-  function handleInput(event){
-    const {name, value} = event.target;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({ email: '', password: '' })
 
-    updateInput((prevValue)=> {return {
-        ...prevValue,
-        [name]: value
-    }});
-}
+    function validate (){
+    let valid = true;
+    let errors = { email: '', password: '' };
+    var regxEmail = /^([a-zA-Z0-9._]+)@([a-zA-Z0-9]+)([.])([a-z]+)(.[a-z]+)?$/;
 
-function submit(event){
-  event.preventDefault()
-  if(input.email !== email || input.password !== password){
-      setValidity(false)
-  }else if(input.email === email && input.password === password){
-      setValidity(true)
+    if ((!regxEmail.test(email))) {
+      errors.email = 'Wrong Email Format';
+      valid = false;
+    }
+
+    if (password.length < 8) {
+      errors.password = 'Password must be at least 8 characters long';
+      valid = false;
+    }
+
+    setErrors(errors);
+    return valid;
   }
-}
+
+  function handleSubmit(event){
+    event.preventDefault();
+    if (validate()) {
+      console.log('Form submitted:',  {email, password} );
+    }
+  }
 
     return(
       <>
@@ -45,12 +48,14 @@ function submit(event){
           </div>
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6" action="#" method="POST">
-              <p className="hidden text-red-500 text-md" style={{display : isValid ? "none" : "flex"}}>Wrong Username or Password</p>
+              {/* <p className="hidden text-red-500 text-md" style={{display : isValid ? "none" : "flex"}}>Wrong Username or Password</p> */}
               <div>
-                <InputBox for="Email Address" Label="Email" type="email" name="email_address" id="email" onChange={handleInput} value={input.value}/>
+                <InputBox for="Email Address" Label="Email" type="email" name="email" id="email" onChange={(e)=>setEmail(e.target.value)} value={email}/>
+                {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
               </div>  
               <div>
-                <InputBox for="Password" Label="Password" type="password" name="password" id="password" onChange={handleInput} value={input.value}/>
+                <InputBox for="Password" Label="Password" type="password" name="password" id="password" onChange={(e)=>setPassword(e.target.value)} value={password}/>
+                {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password}</p>}
               </div>
               <div className="text-md">
                     <a href="#" className="font-semibold text-green-800 hover:text-green-600">
@@ -59,7 +64,7 @@ function submit(event){
               </div>
   
               <div className="flex justify-center ">
-                <Button type="submit" text="Sign In" onClick={submit} style={{width: "10rem", height: "3rem" }}/>
+                <Button type="submit" text="Sign In" onClick={handleSubmit} style={{width: "10rem", height: "3rem" }}/>
               </div>
             </form>
   

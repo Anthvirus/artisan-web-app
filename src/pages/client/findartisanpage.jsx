@@ -2,10 +2,11 @@ import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {Link} from "react-router-dom";
-import SearchBar from '../components/searchcomponent';
-import FindArtisanComponent from '../components/findartisan-component';
-import Carpenter from '../assets/images/carpenter.jpg'
-import services from '../components/services';
+import SearchBar from "../../components/searchcomponent.jsx"
+import FindArtisanComponent from '../../components/artisansearch-component';
+import Artisans from '../../components/Artisans.js';
+import Carpenter from '../../assets/images/carpenter.jpg'
+// import services from '../components/services';
 
 const user = {
     firstName: 'Ikechukwu',
@@ -23,13 +24,6 @@ const user = {
     { name: 'Settings', href: '#' },
     { name: 'Sign out', href: '#' },
   ]
-  const artisan = {
-        name: 'James Dwightmcneil',
-        rating: 4.8,
-        service: "Carpentry",
-        availability: true,
-        image: Carpenter
-      }
   
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -196,10 +190,7 @@ export default function ArtisanFind(){
       </div>
     </div>
     <div className='grid grid-cols-1 lg:px-0 sm:px-8 gap-x-2 gap-y-4 md:grid-cols-2 lg:grid-cols-3'>
-      <FindArtisanComponent name={artisan.name} image={Carpenter} service={artisan.service} rating={artisan.rating}/>
-      <FindArtisanComponent name={artisan.name} image={Carpenter} service={artisan.service} rating={artisan.rating}/>
-      <FindArtisanComponent name={artisan.name} image={Carpenter} service={artisan.service} rating={artisan.rating}/>
-      <FindArtisanComponent name={artisan.name} image={Carpenter} service={artisan.service} rating={artisan.rating}/>
+      <FindArtisanComponent name={Artisans.name} image={Carpenter} service={Artisans.service} rating={Artisans.rating}/>
     </div>
     <div className='flex'>
           <h2 className='mx-auto mt-10 text-xl'>Suggestions</h2>

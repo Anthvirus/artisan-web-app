@@ -1,7 +1,7 @@
 
-import ArtisanSignUpForm from "../components/artisan-signup";
-import Header from "../components/Header";
-import painter from "../assets/images/painter.jpg"
+import ArtisanSignUpForm from "../../components/artisan-signup";
+import Header from "../../components/Header";
+import painter from "../../assets/images/painter.jpg"
 
 export default function ArtisanSignUpPage(){
     return (

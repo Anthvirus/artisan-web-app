@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
+// import Artisan from './Artisans';
 
-export default function FindArtisanComponent(props){
+export default function ArtisanComponent(props){
     
     // const { name, rating, service, availability, image } = artisan;
     return(

@@ -1,6 +1,6 @@
-import ArtisanSignInForm from "../components/artisan-signin";
-import Header from "../components/Header";
-import carpenter from "../assets/images/carpenter.jpg";
+import ArtisanSignInForm from "../../components/artisan-signin";
+import Header from "../../components/Header";
+import carpenter from "../../assets/images/carpenter.jpg";
 
 export default function ArtisanSignInPage(){
     return (

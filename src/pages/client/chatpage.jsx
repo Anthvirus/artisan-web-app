@@ -1,8 +1,11 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {Link} from "react-router-dom";
-import Chat from '../components/chat.jsx'
+import Chat from '../../components/chat.jsx'
+import Popup from '../../components/popup.jsx';
+import Button from '../../components/Button.jsx';
+import Notification from '../../components/notificationbox.jsx';
 
 
 const user = {
@@ -27,9 +30,14 @@ const user = {
   }
   
 export default function ChatPage(){
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const toggleNotifications = ()=>{
+    setShowNotifications(!showNotifications);
+  }
     return (
         <>
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-gray-200">
         <Disclosure as="nav" className="h-24 pt-3 bg-green-800">
           {({ open }) => (
             <>
@@ -37,11 +45,9 @@ export default function ChatPage(){
                 <div className="flex items-center justify-between h-16">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <img
-                        className="w-8 h-8"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                        alt="Your Company"
-                      />
+                    <div className="flex-shrink-0">
+                      <h1 className='text-3xl font-extrabold text-white'>Oga-Artisan</h1>
+                    </div>
                     </div>
                     <div className="hidden md:block">
                       <div className="flex items-baseline ml-10 space-x-4">
@@ -68,6 +74,7 @@ export default function ChatPage(){
                       <button
                         type="button"
                         className="relative p-1 text-gray-400 bg-gray-200 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        onClick={toggleNotifications}
                       >
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">View notifications</span>
@@ -157,6 +164,7 @@ export default function ChatPage(){
                     <button
                       type="button"
                       className="relative flex-shrink-0 p-1 ml-auto text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      onClick={toggleNotifications}
                     >
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">View notifications</span>
@@ -180,8 +188,19 @@ export default function ChatPage(){
             </>
           )}
         </Disclosure>
+        <header className="relative pt-3 bg-gray-200 shadow h-28">
+          <div className="flex justify-between px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <h1 className="text-4xl tracking-tight text-gray-900">Contacts</h1>
+            <Link to="/connections" className='my-auto text-xl font-semibold text-green-900 hover:underline hover:opacity-75'>Go back</Link>
+          </div>
+          <Popup show={showNotifications} onClose={toggleNotifications}>
+              <h1 className='text-3xl font-semibold'>Notifications</h1>
+              <Notification type="warning" message="Your Premium Subcription expires in 7 days, acces to premium content would be denied if you don't renew."/>
+              <Notification type="warning" message="Your Premium Subcription expires in 7 days, acces to premium content would be denied if you don't renew."/>
+            </Popup>
+        </header>
         <main>
-          <div className="relative py-6 mx-auto mt-2 bg-gray-200 min-h-[40rem] max-w-7xl sm:px-6 lg:px-8 rounded-xl">
+          <div className="relative py-6 mx-auto mt-5 bg-white min-h-[40rem] max-w-7xl sm:px-6 lg:px-8 rounded-xl">
             <Chat/>
           </div>
         </main>

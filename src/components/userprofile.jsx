@@ -12,10 +12,23 @@ export default function UserProfile(){
 
   const [isEditing, setIsEditing] = useState(false);
   const [formValues, setFormValues] = useState(user);
+  const [preview, setPreview] = useState(user.profilePicture);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+        setFormValues({ ...formValues, profilePicture: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleFormSubmit = (e) => {
@@ -66,12 +79,12 @@ export default function UserProfile(){
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-700">Profile Picture URL</label>
+                  <label className="block text-gray-700">Profile Picture</label>
                   <input
-                  type="text"
+                  type="file"
+                  accept="image/*"
                   name="profilePicture"
-                  value={formValues.profilePicture}
-                  onChange={handleInputChange}
+                  onChange={handleFileChange}
                   className="w-full p-2 border border-gray-300 rounded-md"
                   />
                 </div>

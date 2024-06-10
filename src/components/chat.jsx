@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import User from './user';
 
 export default function Chat() {
@@ -19,7 +20,7 @@ export default function Chat() {
     <div className="flex flex-col h-[40rem] bg-gray-100 rounded-xl shadow-xl">
       {/* Chat Header */}
       <div className="flex items-center justify-between p-4 text-white bg-green-800 rounded-t-xl">
-        <h1 className="text-xl font-bold">{User.firstName+ ` `+ User.lastName}</h1>
+        <Link to="/" className="text-xl font-bold">{User.firstName+ ` `+ User.lastName}</Link>
       </div>
 
       {/* Chat Messages */}

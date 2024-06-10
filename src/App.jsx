@@ -7,8 +7,9 @@ import UserHome from "./pages/client/user-homepage.jsx";
 import UserContactsPage from "./pages/client/user-connectionpage.jsx";
 import SectionPage from "./pages/client/sectionpage.jsx";
 import ChatPage from "./pages/client/chatpage.jsx";
-import ArtisanFind from "./pages/client/findartisanpage.jsx";
 import UserProfilePage from "./pages/client/userprofilepage.jsx";
+import AppointmentPage from "./pages/client/apointmentpage.jsx";
+import TransactionPage from "./pages/client/transactionpage.jsx";
 
 function App() {
   return (
@@ -17,12 +18,13 @@ function App() {
             <Route path='/' element={<SectionPage/>}/>
             <Route path='/chat' element={<ChatPage/>}/>
             <Route path="/home" element={<UserHome/>}/>
+            <Route path='/transactions' element={<TransactionPage/>}/>
+            <Route path='appointments' element={<AppointmentPage/>}/>
             <Route path="/connections" element={<UserContactsPage/>}/>
             <Route path="/artisansignup" element={<ArtisanSignUpPage/>}/>
             <Route path="/artisansignin" element={<ArtisanSignInPage/>}/>
             <Route path="/usersignup" element={<UserSignupPage/>}/>
             <Route path="/usersignin" element={<UserSignInPage/>}/>
-            <Route path="/findartisan" element={<ArtisanFind/>}/>
             <Route path="/userprofile" element={<UserProfilePage/>}/>
         </Routes>
     </BrowserRouter>

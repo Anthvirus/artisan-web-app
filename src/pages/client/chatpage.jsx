@@ -20,9 +20,11 @@ const user = {
     { name: 'Connections', href: '/connections', current: true},
   ]
   const userNavigation = [
-    { name: 'Your Profile', to: '/user' },
-    { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '#' },
+    { name: 'Appointments', to: '/appointments' },
+    { name: 'Transaction History', to: '/transactions' },
+    { name: 'Your Profile', to: '/userprofile' },
+    { name: 'Settings', to: '#' },
+    { name: 'Sign out', to: '#' },
   ]
   
   function classNames(...classes) {

@@ -1,53 +1,53 @@
-import { useState } from 'react';
-import { Fragment } from 'react';
+import {Link} from "react-router-dom";
+import { Fragment, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import {Link} from "react-router-dom";
-import Notification from '../../components/notificationbox.jsx';
-import Popup from '../../components/popup.jsx';
-import UserProfile from '../../components/userprofile.jsx';
+import user from "../../components/user.js";
+import Popup from "../../components/popup";
+import Notification from "../../components/notificationbox";
+import Button from "../../components/Button.jsx";
+import AppointmentCard from "../../components/appointmentcard.jsx";
 
-const user = {
-    firstName: 'Ikechukwu',
-    lastName: 'Chi',
-    email: 'tom@example.com',
-    imageUrl:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  }
-  const navigation = [
-    { name: 'Home', to: '/home', current: true},
-    { name: 'Connections', to: '/connections', current: false},
-  ]
-  const userNavigation = [
-    { name: 'Appointments', to: '/appointments' },
-    { name: 'Transaction History', to: '#' },
-    { name: 'Your Profile', to: '/userprofile' },
-    { name: 'Settings', to: '#' },
-    { name: 'Sign out', to: '#' },
-  ]
-  
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-  }
-  
-export default function UserProfilePage(){
+const navigation = [
+  { name: 'Home', to: '/home', current: false},
+  { name: 'Connections', to: '/connections', current: true},
+]
+const userNavigation = [
+  { name: 'Appointments', to: '/appointments' },
+  { name: 'Transaction History', to: '/transactions' },
+  { name: 'Your Profile', to: '/userprofile' },
+  { name: 'Settings', to: '#' },
+  { name: 'Sign out', to: '#' },
+]
 
-  const [showNotifications, setShowNotifications] = useState(false)
-  
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
+function AppointmentPage() {
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [appointments, setAppointments] = useState(false);
+
   const toggleNotifications = ()=>{
     setShowNotifications(!showNotifications);
   }
-
-  return (
-    <div className="min-h-screen bg-gray-100">
+  const createAppointment = ()=>{
+    setAppointments(!appointments);
+  }
+  
+  return (    
+    <>
+      <div className="min-h-screen bg-gray-200">
         <Disclosure as="nav" className="h-24 pt-3 bg-green-800">
           {({ open }) => (
             <>
-              <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+              <div className="px-4 mx-auto py-auto max-w-7xl sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
+                    <div className="flex-shrink-0">
                       <h1 className='text-3xl font-extrabold text-white'>Oga-Artisan</h1>
+                    </div>
                     </div>
                     <div className="hidden md:block">
                       <div className="flex items-baseline ml-10 space-x-4">
@@ -73,17 +73,19 @@ export default function UserProfilePage(){
                     <div className="flex items-center ml-4 md:ml-6">
                       <button
                         type="button"
-                        className="p-1 text-gray-400 bg-gray-200 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                        className="relative p-1 text-gray-400 bg-gray-200 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                         onClick={toggleNotifications}
                       >
+                        <span className="absolute -inset-1.5" />
                         <span className="sr-only">View notifications</span>
-                        <BellIcon className="w-6 h-6" aria-hidden="true"/>
+                        <BellIcon className="w-6 h-6 invert" aria-hidden="true" />
                       </button>
 
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
                         <div>
-                          <Menu.Button className="flex text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                          <Menu.Button className="relative flex items-center max-w-xs text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                            <span className="absolute -inset-1.5" />
                             <span className="sr-only">Open user menu</span>
                             <img className="w-8 h-8 rounded-full" src={user.imageUrl} alt="" />
                           </Menu.Button>
@@ -97,7 +99,7 @@ export default function UserProfilePage(){
                           leaveFrom="transform opacity-100 scale-100"
                           leaveTo="transform opacity-0 scale-95"
                         >
-                          <Menu.Items className="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <Menu.Items className="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             {userNavigation.map((item) => (
                               <Menu.Item key={item.name}>
                                 {({ active }) => (
@@ -119,7 +121,8 @@ export default function UserProfilePage(){
                     </div>
                   </div>
                   <div className="flex -mr-2 md:hidden">
-                    <Disclosure.Button className="relative inline-flex items-center justify-center p-2 text-gray-400 bg-gray-800 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    {/* Mobile menu button */}
+                    <Disclosure.Button className="relative inline-flex items-center justify-center p-2 text-gray-400 bg-gray-800 rounded-md hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-0.5" />
                       <span className="sr-only">Open main menu</span>
                       {open ? (
@@ -141,7 +144,7 @@ export default function UserProfilePage(){
                       to={item.to}
                       className={classNames(
                         item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'block px-3 py-2 rounded-md text-base font-medium'
+                        'block rounded-md px-3 py-2 text-base font-medium'
                       )}
                       aria-current={item.current ? 'page' : undefined}
                     >
@@ -155,25 +158,26 @@ export default function UserProfilePage(){
                       <img className="w-10 h-10 rounded-full" src={user.imageUrl} alt="" />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium text-gray-900">{`${user.firstName} ${user.lastName}`}</div>
-                      <div className="text-sm font-medium text-gray-500">{user.email}</div>
+                      <div className="text-base font-medium leading-none text-white">{user.name}</div>
+                      <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
                     </div>
                     <button
                       type="button"
-                      className="flex-shrink-0 p-1 ml-auto text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className="relative flex-shrink-0 p-1 ml-auto text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                       onClick={toggleNotifications}
                     >
+                      <span className="absolute -inset-1.5" />
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="w-6 h-6" aria-hidden="true" />
                     </button>
                   </div>
-                  <div className="px-2 mt-3 space-y-1">
+                  <div className="px-2 mt-3 space-y-1 bg-gray-200">
                     {userNavigation.map((item) => (
                       <Disclosure.Button
                         key={item.name}
-                        as={Link}
+                        as="a"
                         to={item.to}
-                        className="block px-3 py-2 text-base font-medium text-gray-700 rounded-md hover:bg-gray-100 hover:text-gray-900"
+                        className="block px-3 py-2 text-base font-medium text-gray-700 rounded-md hover:bg-gray-700 hover:text-white"
                       >
                         {item.name}
                       </Disclosure.Button>
@@ -184,23 +188,35 @@ export default function UserProfilePage(){
             </>
           )}
         </Disclosure>
-        <header className="pt-3 bg-gray-200 shadow h-28">
-          <div className="flex items-center justify-between px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <h1 className="text-4xl font-bold text-gray-900">Your Profile</h1>
-            <div className='flex gap-2'>
-            <Popup show={showNotifications} onClose={toggleNotifications}>
-              <h1 className='text-3xl font-semibold'>Notifications</h1>
-              <Notification type="error" message="Your Premium Subcription expires in 7 days, acces to premium content would be denied if you don't renew."/>
-              <Notification type="info" message="Your Premium Subcription expires in 7 days, acces to premium content would be denied if you don't renew."/>
-            </Popup>
-            </div>
+        <header className="relative pt-3 bg-gray-200 shadow h-28">
+          <div className="flex justify-between px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <h1 className="text-4xl tracking-tight text-gray-900">Appointments</h1>
+            <Button text="+ New Appointment" onClick={createAppointment}/>
           </div>
+          <Popup show={showNotifications} onClose={toggleNotifications}>
+              <h1 className='text-3xl font-semibold'>Notifications</h1>
+              <Notification type="warning" message="Your Premium Subcription expires in 7 days, acces to premium content would be denied if you don't renew."/>
+              <Notification type="warning" message="Your Premium Subcription expires in 7 days, acces to premium content would be denied if you don't renew."/>
+            </Popup>
+            <Popup show={appointments} onClose={createAppointment}>
+              <h1 className='text-3xl font-semibold'>Create Appointment</h1>
+              <form>
+                <label>Artisan Name</label>
+                <input
+                  name="artisan_name"
+                  type="text"
+                />
+              </form>
+            </Popup>
         </header>
         <main>
-          <div>
-            <UserProfile/>
+          <div className="relative py-6 mx-auto mt-1 max-w-7xl sm:px-6 lg:px-8">
+          <AppointmentCard/>
           </div>
         </main>
-    </div>
-  );
+      </div>
+    </>
+  )
 }
+
+export default AppointmentPage;

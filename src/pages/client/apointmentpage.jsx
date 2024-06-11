@@ -24,17 +24,33 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-function AppointmentPage() {
+export default function AppointmentPage() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [appointments, setAppointments] = useState(false);
+  const [tasks, setTasks] = useState([]);
+  const[name, setName] = useState("");
+  const[description, setDescription] = useState("");
+  const[amount, setAmount] = useState("");
+  const[endDate, setEnd] = useState("");
+  const[startDate, setStart] = useState("");
 
   const toggleNotifications = ()=>{
     setShowNotifications(!showNotifications);
   }
+  
   const createAppointment = ()=>{
     setAppointments(!appointments);
+    console.log(tasks)
   }
   
+  function submitAppointment(e){
+    e.preventDefault();
+    if (name.trim() !== '' || description.trim() !== '' || amount.trim() !== '' || startDate !== '' || endDate !== '') {
+      setTasks([{name: name,  description: description, amountAgreed: amount, startDate: startDate, endDate: endDate}, ...tasks]);
+      setAppointments(!appointments);
+  }
+}
+
   return (    
     <>
       <div className="min-h-screen bg-gray-200">
@@ -200,23 +216,83 @@ function AppointmentPage() {
             </Popup>
             <Popup show={appointments} onClose={createAppointment}>
               <h1 className='text-3xl font-semibold'>Create Appointment</h1>
-              <form>
-                <label>Artisan Name</label>
+              <form className="flex flex-col gap-4 my-4">
+                <div className="flex flex-col items-start gap-2">
+                <label className="text-lg">Name of Artisan:</label>
                 <input
-                  name="artisan_name"
+                  name="name"
                   type="text"
+                  className="items-center w-full h-12 p-2 text-xl rounded-md"
+                  required
+                  onChange={(e)=>setName(e.target.value)}
+                  value={name}
                 />
+                </div>
+                <div className="flex flex-col items-start gap-2">
+                <label className="text-lg">Describe the task the artisan is to do:</label>
+                <textarea
+                  name="description"
+                  type="text"
+                  className="items-center w-full h-24 p-2 text-xl rounded-md"
+                  required
+                  onChange={(e)=>setDescription(e.target.value)}
+                  value={description}
+                />
+                </div>
+                <div className="flex my-2 gap-x-4">
+                <div className="flex items-center justify-center gap-x-2">
+                <label className="text-xl">Start Date:</label>
+                <input
+                  name="start_date"
+                  type="date"
+                  className="items-center h-12 p-2 text-xl rounded-md w-72"
+                  required
+                  onChange={(e)=>setStart(e.target.value)}
+                />
+                </div>
+                <div className="flex items-center justify-center gap-x-2">
+                <label className="text-xl">End Date:</label>
+                <input
+                  name="end_date"
+                  type="date"
+                  className="items-center h-12 p-2 text-xl rounded-md w-72"
+                  required
+                  onChange={(e)=>setEnd(e.target.value)}
+                />
+                </div>
+                </div>
+                <div className="flex items-center gap-2 my-2">
+                <label className="text-xl">Amount Agreed $:</label>
+                <input
+                  name="amount"
+                  type="text"
+                  className="items-center h-12 p-2 text-xl rounded-md w-96"
+                  required
+                  onChange={(e)=>setAmount(e.target.value)}
+                  value={amount}
+                />
+                </div>
+                <Button text="Submit Appointment" onClick={submitAppointment}/>
               </form>
             </Popup>
         </header>
         <main>
-          <div className="relative py-6 mx-auto mt-1 max-w-7xl sm:px-6 lg:px-8">
-          <AppointmentCard/>
+          <div className="relative flex flex-col items-center py-6 mx-auto mt-2 bg-white max-w-7xl sm:px-6 lg:px-8 rounded-xl max-h-[40rem] overflow-y-scroll">
+          {tasks == '' ?  (<p className="text-xl text-gray-500">No Appointments Available</p>) :
+          (tasks.map((task, id) =>(
+            <AppointmentCard 
+            key = {id}
+            artisanName={task.name} 
+            amountAgreed={task.amountAgreed}
+            startDate={task.startDate}
+            endDate={task.endDate}
+            taskDescription={task.description}
+            delete={deleteAppointment}
+            />
+          )))}
           </div>
         </main>
       </div>
     </>
   )
 }
-
-export default AppointmentPage;

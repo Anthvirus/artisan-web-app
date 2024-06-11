@@ -20,8 +20,8 @@ const navigation = [
   { name: 'Connections', to: '/connections', current: false},
 ]
 const userNavigation = [
-  { name: 'Appointments', to: '#' },
-  { name: 'Transaction History', to: '#' },
+  { name: 'Appointments', to: '/appointments' },
+  { name: 'Transaction History', to: '/transactions' },
   { name: 'Your Profile', to: '/userprofile' },
   { name: 'Settings', to: '#' },
   { name: 'Sign out', to: '#' },

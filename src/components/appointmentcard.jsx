@@ -1,22 +1,14 @@
 import Button from "./Button";
 import { Link } from "react-router-dom";
 
-const task= {
-    artisanName : "Devine Rensh",
-    taskDescription : "Installation of 12 ceiling fans",
-    startDate : "-",
-    endDate : "-",
-    amountAgreed: '50'    
-}
-
-export default function AppointmentCard(){
+export default function AppointmentCard(task){
     return (
         <>
-    <div className="max-w-3xl p-3 mx-auto overflow-hidden bg-white rounded-lg shadow-lg">
+    <div className="w-full p-3 mx-auto my-2 overflow-hidden bg-gray-100 rounded-lg shadow-lg min-h-80">
       <div className="p-4">
         <div className="mb-2">
           <Link to="/" className="text-3xl font-extrabold text-gray-800">{task.artisanName}</Link>
-          <p className="text-xl font-semibold gray-600 text-">{task.taskDescription}</p>
+          <p className="my-4 text-lg text-gray-600">{task.taskDescription}</p>
         </div>
         <div className="mb-2">
           <div className="flex justify-between text-xl">
@@ -33,7 +25,7 @@ export default function AppointmentCard(){
           <span className="font-extrabold text-gray-800">${task.amountAgreed}</span>
         </div>
       </div>
-      <Button text="Cancel Appointment"/>
+      <Button text="Cancel Appointment" onClick={task.delete}/>
     </div>
         </>
     )

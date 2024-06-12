@@ -4,41 +4,65 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {Link} from "react-router-dom";
 import Notification from '../../components/notificationbox.jsx';
+import Button from '../../components/Button.jsx';
 import Popup from '../../components/popup.jsx';
-import UserProfile from '../../components/userprofile.jsx';
+import ArtisanTaskCard from '../../components/artisan-task.jsx';
 
 const user = {
-    firstName: 'Ikechukwu',
-    lastName: 'Chi',
-    email: 'tom@example.com',
-    imageUrl:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  }
-  const navigation = [
-    { name: 'Home', to: '/home', current: true},
-    { name: 'Connections', to: '/connections', current: false},
-  ]
-  const userNavigation = [
-    { name: 'Appointments', to: '/appointments' },
-    { name: 'Transaction History', to: '/transactions' },
-    { name: 'Your Profile', to: '/userprofile' },
-    { name: 'Sign out', to: '#' },
-  ]
-  
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-  }
-  
-export default function UserProfilePage(){
+  firstName: 'Ikechukwu',
+  lastName: 'Chi',
+  email: 'tom@example.com',
+  imageUrl:
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+}
+const navigation = [
+  { name: 'Home', to: '/artisanhome', current: true},
+  { name: 'Connections', to: '/connections', current: false},
+]
+const userNavigation = [
+  { name: 'Tasks', to: '/tasks' },
+  { name: 'Transaction History', to: '/transactions' },
+  { name: 'Your Profile', to: '/artisanprofile' },
+  { name: 'Sign out', to: '#' },
+]
 
+const tasks = [
+    // {
+    //     clientName: "Ore Akindele",
+    //     taskDescription: "Installation of 200 ceiling boards, roofing of a building and installation of 12 doors.",
+    //     startDate: "12-23-2023",
+    //     endDate: "12-30-20",
+    //     amountAgreed: "200"
+    // },
+    // {
+    //     clientName: "Ore Akindele",
+    //     taskDescription: "Installation of 200 ceiling boards, roofing of a building and installation of 12 doors.",
+    //     startDate: "12-23-2023",
+    //     endDate: "12-30-20",
+    //     amountAgreed: "200"
+    // }
+]
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
+export default function ArtisanHome(){
+  const [showPopupTwo, setShowPopupTwo] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false)
+  
+  const toggleWithdrawalPopup = () => {
+    setShowPopupTwo(!showPopupTwo);
+  };
   
   const toggleNotifications = ()=>{
     setShowNotifications(!showNotifications);
   }
-
+  
+  var balance = '200.00';
   return (
-    <div className="min-h-screen bg-gray-100">
+    <>
+      <div className="min-h-screen bg-gray-200">
         <Disclosure as="nav" className="h-24 pt-3 bg-green-800">
           {({ open }) => (
             <>
@@ -185,8 +209,48 @@ export default function UserProfilePage(){
         </Disclosure>
         <header className="pt-3 bg-gray-200 shadow h-28">
           <div className="flex items-center justify-between px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <h1 className="text-4xl font-bold text-gray-900">Your Profile</h1>
+            <h1 className="text-4xl font-bold text-gray-900">Hi, <span className="font-extrabold">{user.lastName}</span></h1>
             <div className='flex gap-2'>
+            <h1 className="flex items-end font-semibold text-gray-900 text-md">Account balance: <b className='text-4xl'>{'$'+balance}</b></h1>
+            <Button type="button" text="Withdraw" style={{backgroundColor: "inherit", color: "green ", boxShadow: 0}} onClick={toggleWithdrawalPopup}/>
+            <Popup show={showPopupTwo} onClose={toggleWithdrawalPopup}>
+            <form className="flex flex-col h-96 gap-y-2">
+              <label htmlFor="first-name" className="block text-xl font-medium leading-6 text-gray-900">
+                Amount $:
+              </label>
+              <div className="">
+                <input
+                  type="num"
+                  name="first-name"
+                  id="first-name"
+                  placeholder="0.00"
+                  className="block w-full h-12 px-2 text-4xl font-extrabold text-right text-gray-900 rounded-md shadow-sm placeholder:text-gray-600 ring-0 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600"
+                />
+              </div>
+              <label htmlFor="first-name" className="block mt-3 text-xl font-medium leading-6 text-gray-900">
+                Select Bank:
+              </label>
+              <div className="">
+                <select className='w-full h-12'>
+                  <option>-</option>
+                  <option>Opay</option>
+                  <option>Kuda</option>
+                  <option>Access Bank</option>
+                </select>
+                <label htmlFor="first-name" className="block mt-4 mb-2 text-xl font-medium leading-6 text-gray-900">
+                Account Number:
+              </label>
+              <div className="">
+                <input
+                  type="num"
+                  name="name"
+                  className="block w-full h-12 px-4 text-2xl text-gray-900 rounded-md shadow-sm placeholder:text-gray-600 ring-0 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600"
+                />
+              </div>
+              </div>
+              <Button style={{marginTop: "2rem"}} text="Submit"/>
+            </form>
+            </Popup>
             <Popup show={showNotifications} onClose={toggleNotifications}>
               <h1 className='text-3xl font-semibold'>Notifications</h1>
               <Notification type="error" message="Your Premium Subcription expires in 7 days, acces to premium content would be denied if you don't renew."/>
@@ -196,10 +260,23 @@ export default function UserProfilePage(){
           </div>
         </header>
         <main>
-          <div>
-            <UserProfile/>
+          <div className='w-full mx-2 p-4 md:mx-auto mt-2 bg-gray-100 lg:w-1/2 rounded-xl max-h-[30rem] overflow-y-scroll  '>
+          <h1 className='my-4 text-3xl font-bold'>Open Jobs</h1>
+          {tasks == '' ?  (<p className="text-xl text-gray-500">No Available Jobs</p>) :
+          (tasks.map((task, id) =>(
+            <ArtisanTaskCard 
+            key = {id}
+            clientName={task.clientName} 
+            amountAgreed={task.amountAgreed}
+            startDate={task.startDate}
+            endDate={task.endDate}
+            taskDescription={task.taskDescription}
+            // delete={deleteAppointment}
+            />
+          )))}          
           </div>
         </main>
-    </div>
-  );
+      </div>
+    </>
+  )
 }

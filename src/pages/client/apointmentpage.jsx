@@ -16,7 +16,6 @@ const userNavigation = [
   { name: 'Appointments', to: '/appointments' },
   { name: 'Transaction History', to: '/transactions' },
   { name: 'Your Profile', to: '/userprofile' },
-  { name: 'Settings', to: '#' },
   { name: 'Sign out', to: '#' },
 ]
 

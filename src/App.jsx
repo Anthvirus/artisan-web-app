@@ -10,6 +10,8 @@ import ChatPage from "./pages/client/chatpage.jsx";
 import UserProfilePage from "./pages/client/userprofilepage.jsx";
 import AppointmentPage from "./pages/client/apointmentpage.jsx";
 import TransactionPage from "./pages/client/transactionpage.jsx";
+import ArtisanHome from "./pages/artisan/artisan-home.jsx";
+import ArtisanProfilePage from "./pages/artisan/artisan-profilepage.jsx";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
             <Route path="/usersignup" element={<UserSignupPage/>}/>
             <Route path="/usersignin" element={<UserSignInPage/>}/>
             <Route path="/userprofile" element={<UserProfilePage/>}/>
+            <Route path="/artisanhome" element={<ArtisanHome/>}/>
+            <Route path="/artisanprofile" element={<ArtisanProfilePage/>}/>
         </Routes>
     </BrowserRouter>
   )

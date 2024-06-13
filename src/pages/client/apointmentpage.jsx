@@ -276,7 +276,7 @@ export default function AppointmentPage() {
             </Popup>
         </header>
         <main>
-          <div className="relative flex flex-col items-center py-6 mx-auto mt-2 bg-white max-w-7xl sm:px-6 lg:px-8 rounded-xl max-h-[40rem] overflow-y-scroll">
+          <div className="relative flex flex-col items-center py-6 mx-auto mt-2 bg-white max-w-7xl sm:px-6 lg:px-8 rounded-xl max-h-[40rem] overflow-y-auto">
           {tasks == '' ?  (<p className="text-xl text-gray-500">No Appointments Available</p>) :
           (tasks.map((task, id) =>(
             <AppointmentCard 

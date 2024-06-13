@@ -4,9 +4,9 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {Link} from "react-router-dom";
 import Notification from '../../components/notificationbox.jsx';
-import Button from '../../components/Button.jsx';
 import Popup from '../../components/popup.jsx';
 import ArtisanProfileCard from '../../components/artisan-profile.jsx';
+import ProfileEditForm from '../../components/artisanprofileedit.jsx';
 
 const user = {
   firstName: 'Ikechukwu',
@@ -32,14 +32,39 @@ function classNames(...classes) {
 
 export default function ArtisanProfilePage(){
     const [showNotifications, setShowNotifications] = useState(false)
+    const initialArtisan = {
+      name: 'Artisan Name',
+      email: 'email@example.com',
+      phoneNumber: '+1234567890',
+      location: 'City, Country',
+      officeAddress: '123 Artisan Street, Office 456',
+      whatsappContact: '+1234567890',
+      imageUrl: 'https://via.placeholder.com/100',
+    };
+  
+    const [artisan, setArtisan] = useState(initialArtisan);
+    const [isEditing, setIsEditing] = useState(false);
+  
+    const handleEdit = () => {
+      setIsEditing(true);
+    };
+  
+    const handleSave = (updatedArtisan) => {
+      setArtisan(updatedArtisan);
+      setIsEditing(false);
+    };
+  
+    const handleCancel = () => {
+      setIsEditing(false);
+    };
     
     const toggleNotifications = ()=>{
       setShowNotifications(!showNotifications);
     }
         
     return (
-        <>
-        <div className="min-h-screen bg-gray-200">
+      <>
+      <div className="min-h-screen bg-gray-200 max-w-screen">
         <Disclosure as="nav" className="h-24 pt-3 bg-green-800">
           {({ open }) => (
             <>
@@ -197,11 +222,15 @@ export default function ArtisanProfilePage(){
           </div>
         </header>
         <main>
-          <div className='w-full p-4 mx-2 mt-2 bg-gray-100 md:mx-auto lg:w-1/2 rounded-xl'>
-            <ArtisanProfileCard/>
+          <div className=' p-4 md:mx-auto mt-2 mx-4 bg-white lg:w-1/2 rounded-xl min-h-[30rem]'>
+          {isEditing ? (
+           <ProfileEditForm artisan={artisan} onSave={handleSave} onCancel={handleCancel} />
+           ) : (
+           <ArtisanProfileCard artisan={artisan} onEdit={handleEdit} />
+           )}
           </div>
         </main>
       </div>
-        </>
-    )
+      </>
+  )
 }

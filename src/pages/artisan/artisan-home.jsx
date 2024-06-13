@@ -260,7 +260,7 @@ export default function ArtisanHome(){
           </div>
         </header>
         <main>
-          <div className='w-full mx-2 p-4 md:mx-auto mt-2 bg-gray-100 lg:w-1/2 rounded-xl max-h-[30rem] overflow-y-scroll  '>
+          <div className='w-full mx-2 p-4 md:mx-auto mt-2 bg-gray-100 lg:w-1/2 rounded-xl max-h-[30rem] overflow-y-auto'>
           <h1 className='my-4 text-3xl font-bold'>Open Jobs</h1>
           {tasks == '' ?  (<p className="text-xl text-gray-500">No Available Jobs</p>) :
           (tasks.map((task, id) =>(

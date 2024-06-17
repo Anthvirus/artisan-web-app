@@ -1,4 +1,4 @@
-import UserSignUpForm from '../../components/user-signup';
+import UserSignUpForm from '../../components/clientsignup';
 import Header from "../../components/Header";
 import carpenter from "../../assets/images/carpenter.jpg";
 

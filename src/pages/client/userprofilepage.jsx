@@ -5,7 +5,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {Link} from "react-router-dom";
 import Notification from '../../components/notificationbox.jsx';
 import Popup from '../../components/popup.jsx';
-import UserProfile from '../../components/userprofile.jsx';
+import ClientProfile from '../../components/clientprofile.jsx';
 
 const user = {
     firstName: 'Ikechukwu',
@@ -197,7 +197,7 @@ export default function UserProfilePage(){
         </header>
         <main>
           <div>
-            <UserProfile/>
+            <ClientProfile/>
           </div>
         </main>
     </div>

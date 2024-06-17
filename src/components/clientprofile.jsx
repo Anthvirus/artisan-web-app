@@ -1,15 +1,17 @@
 import { useState } from "react";
 import Button from "./Button";
 
-export default function UserProfile(){
-      const [user, setUser] = useState({
+export default function ClientProfile(){
+    const [user, setUser] = useState({
     name: 'John Doe',
     location: 'New York, USA',
-    profilePicture: 'https://via.placeholder.com/150',
+    profilePicture: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     email: 'john.doe@example.com',
     tel: '+234-903-601-331-5'
   });
 
+  const client = false;
+  
   const [isEditing, setIsEditing] = useState(false);
   const [formValues, setFormValues] = useState(user);
   const [preview, setPreview] = useState(user.profilePicture);
@@ -50,10 +52,10 @@ export default function UserProfile(){
             <h1 className="text-xl">{user.email}</h1>
             <h1 className="text-xl">{user.tel}</h1>
           </div>
-          <Button
+          {client ? (<Button
           onClick={() => setIsEditing(!isEditing)}
           text={isEditing ? 'Cancel' : 'Edit Profile'}
-          />
+          />) : (<></>)}
         </div>
         <div>
             {isEditing && (

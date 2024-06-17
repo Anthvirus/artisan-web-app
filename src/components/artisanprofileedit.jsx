@@ -1,18 +1,24 @@
 import { useState } from 'react';
 
-function ProfileEditForm({ artisan, onSave, onCancel }){
+function ProfileEditForm({ artisan, onSave, onCancel }) {
   const [formData, setFormData] = useState(artisan);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(formData);
   };
-
+  
+  const handleCancel = () => {
+    // Reset formData to original artisan data
+    setFormData(artisan);
+    onCancel();
+  }
+  
   return (
     <form onSubmit={handleSubmit} className="w-full p-4 mx-auto bg-white rounded-lg shadow-lg">
       <div className="mb-4">
@@ -76,15 +82,15 @@ function ProfileEditForm({ artisan, onSave, onCancel }){
         />
       </div>
       <div className="flex justify-between">
-        <button type="button" onClick={onCancel} className="px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700">
+        <button type="button" onClick={handleCancel} className="px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700">
           Cancel
         </button>
-        <button type="submit" className="px-4 py-2 text-white bg-green-700 rounded hover:bg-green-800" onClick={onSave}>
+        <button type="submit" onClick={onSave} className="px-4 py-2 text-white bg-green-700 rounded hover:bg-green-800">
           Save
         </button>
       </div>
     </form>
   );
-};
+}
 
 export default ProfileEditForm;

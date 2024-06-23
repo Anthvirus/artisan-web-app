@@ -2,10 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 function ContactCard(props){
     return (
-        <Link className="px-4 bg-gray-200 rounded-lg hover:cursor-pointer" to='/chat' onClick={props.onClick}>
+        <Link className="px-4 bg-gray-200 rounded-lg hover:cursor-pointer" to={'/chat'} state={{connection_id: props.id, receiver_id: props.receiver_id}} onClick={props.onClick}>
           <li key={props.id} className="flex justify-between py-5 gap-x-6">
             <div className="flex min-w-0 gap-x-4">
-              <img className="flex-none w-12 h-12 rounded-full bg-gray-50" src={props.imageUrl} alt="" />
+              <img className="flex-none w-12 h-12 rounded-full bg-gray-50" src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80' alt="" />
               <div className="flex-auto min-w-0">
                 <p className="mt-2 font-semibold leading-6 text-gray-900 text-md">{props.name}</p>
               </div>

@@ -84,7 +84,7 @@ export default function ArtisanProfilePage(){
                         <div>
                           <Menu.Button className="flex text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                             <span className="sr-only">Open user menu</span>
-                            <img className="w-8 h-8 rounded-full" src={user.imageUrl} alt="" />
+                            <img className="w-8 h-8 rounded-full" src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80' alt="" />
                           </Menu.Button>
                         </div>
                         <Transition
@@ -151,7 +151,7 @@ export default function ArtisanProfilePage(){
                 <div className="pt-4 pb-3 bg-gray-200 border-t border-gray-700">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
-                      <img className="w-10 h-10 rounded-full" src={user.imageUrl} alt="" />
+                      <img className="w-10 h-10 rounded-full" src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80' alt="" />
                     </div>
                     <div className="ml-3">
                       <div className="text-base font-medium text-gray-900">{`${user.firstName} ${user.lastName}`}</div>

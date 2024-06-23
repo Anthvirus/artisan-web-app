@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from './Button';
 
-export default function SearchBar(){
+export default function SearchBar({ onSearch }){
   const [query, setQuery] = useState('');
 
   const handleInputChange = (e) => {
@@ -11,6 +11,8 @@ export default function SearchBar(){
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(query)
+    onSearch(query)
+
   };
 
   return (

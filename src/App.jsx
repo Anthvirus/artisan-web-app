@@ -12,16 +12,19 @@ import AppointmentPage from "./pages/client/apointmentpage.jsx";
 import TransactionPage from "./pages/client/transactionpage.jsx";
 import ArtisanHome from "./pages/artisan/artisan-home.jsx";
 import ArtisanProfilePage from "./pages/artisan/artisan-profilepage.jsx";
+import { Provider } from 'react-redux';
+import store from "./redux/store.jsx";
 
 function App() {
   return (
+    <Provider store={store}>
     <BrowserRouter>
         <Routes>
             <Route path='/' element={<SectionPage/>}/>
             <Route path='/chat' element={<ChatPage/>}/>
             <Route path="/home" element={<UserHome/>}/>
             <Route path='/transactions' element={<TransactionPage/>}/>
-            <Route path='appointments' element={<AppointmentPage/>}/>
+            <Route path='/appointments' element={<AppointmentPage/>}/>
             <Route path="/connections" element={<UserContactsPage/>}/>
             <Route path="/artisansignup" element={<ArtisanSignUpPage/>}/>
             <Route path="/artisansignin" element={<ArtisanSignInPage/>}/>
@@ -32,6 +35,7 @@ function App() {
             <Route path="/artisanprofile" element={<ArtisanProfilePage/>}/>
         </Routes>
     </BrowserRouter>
+    </Provider>
   )
 }
 

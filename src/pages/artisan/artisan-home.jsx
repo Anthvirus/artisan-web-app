@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -7,14 +7,9 @@ import Notification from '../../components/notificationbox.jsx';
 import Button from '../../components/Button.jsx';
 import Popup from '../../components/popup.jsx';
 import ArtisanTaskCard from '../../components/artisan-task.jsx';
+import { baseUrl } from '../../../constants/server.js';
+import axios from 'axios';
 
-const user = {
-  firstName: 'Ikechukwu',
-  lastName: 'Chi',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
 const navigation = [
   { name: 'Home', to: '/artisanhome', current: true},
   { name: 'Connections', to: '/connections', current: false},
@@ -50,7 +45,11 @@ function classNames(...classes) {
 export default function ArtisanHome(){
   const [showPopupTwo, setShowPopupTwo] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false)
-  
+  // const [balance, setBalance] = useState(0);
+  const [amount, setAmount] = useState(0);
+  const [tasks, setTasks] = useState([]);
+  const [user, setUser]= useState('');
+
   const toggleWithdrawalPopup = () => {
     setShowPopupTwo(!showPopupTwo);
   };
@@ -60,6 +59,51 @@ export default function ArtisanHome(){
   }
   
   var balance = '200.00';
+
+  const userId = localStorage.getItem('userId') // Get the userId from the Redux state
+  console.log('User',userId)
+
+  useEffect(() => {
+    // Fetch user data
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`${baseUrl}/users/${userId}`);
+        const data = await response.json();
+        setUser(data);
+        
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+    
+    const fetchUserBalance = async () => {
+      try {
+        const response = await fetch(`${baseUrl}/accounts/${userId}`);
+        const data = await response.json();
+        //setBalance(data.balance);
+      } catch (error) {
+        console.error('Error fetching user balance:', error);
+      }
+    };
+    const fetchAppointments = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/appointments/artisan/${userId}`);
+        if (response.status === 200) {
+          setTasks(response.data);
+          console.log('Appointments fetched:', response.data);
+        } else {
+          console.error('Error fetching appointments:', response.data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+      }
+    };
+
+    fetchUserData();
+    fetchUserBalance();
+    fetchAppointments();
+  }, [userId]);
+
   return (
     <>
       <div className="min-h-screen bg-gray-200">
@@ -108,7 +152,7 @@ export default function ArtisanHome(){
                         <div>
                           <Menu.Button className="flex text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                             <span className="sr-only">Open user menu</span>
-                            <img className="w-8 h-8 rounded-full" src={user.imageUrl} alt="" />
+                            <img className="w-8 h-8 rounded-full" src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80' alt="" />
                           </Menu.Button>
                         </div>
                         <Transition
@@ -175,10 +219,10 @@ export default function ArtisanHome(){
                 <div className="pt-4 pb-3 bg-gray-200 border-t border-gray-700">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
-                      <img className="w-10 h-10 rounded-full" src={user.imageUrl} alt="" />
+                      <img className="w-10 h-10 rounded-full" src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80' alt="" />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium text-gray-900">{`${user.firstName} ${user.lastName}`}</div>
+                      <div className="text-base font-medium text-gray-900">{`${user.fname} ${user.lname}`}</div>
                       <div className="text-sm font-medium text-gray-500">{user.email}</div>
                     </div>
                     <button
@@ -209,7 +253,7 @@ export default function ArtisanHome(){
         </Disclosure>
         <header className="pt-3 bg-gray-200 shadow h-28">
           <div className="flex items-center justify-between px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <h1 className="text-4xl font-bold text-gray-900">Hi, <span className="font-extrabold">{user.lastName}</span></h1>
+            <h1 className="text-4xl font-bold text-gray-900">Hi, <span className="font-extrabold">{user.lname}</span></h1>
             <div className='flex gap-2'>
             <h1 className="flex items-end font-semibold text-gray-900 text-md">Account balance: <b className='text-4xl'>{'$'+balance}</b></h1>
             <Button type="button" text="Withdraw" style={{backgroundColor: "inherit", color: "green ", boxShadow: 0}} onClick={toggleWithdrawalPopup}/>
@@ -266,11 +310,11 @@ export default function ArtisanHome(){
           (tasks.map((task, id) =>(
             <ArtisanTaskCard 
             key = {id}
-            clientName={task.clientName} 
-            amountAgreed={task.amountAgreed}
-            startDate={task.startDate}
-            endDate={task.endDate}
-            taskDescription={task.taskDescription}
+            clientName={task.client_name} 
+            amountAgreed={task.amount}
+            startDate={task.start_date}
+            endDate={task.end_date}
+            taskDescription={task.description}
             // delete={deleteAppointment}
             />
           )))}          

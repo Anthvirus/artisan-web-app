@@ -1,14 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "./Button";
+import { baseUrl } from "../../constants/server";
+import axios from "axios";
 
 export default function ClientProfile(){
-    const [user, setUser] = useState({
-    name: 'John Doe',
-    location: 'New York, USA',
-    profilePicture: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    email: 'john.doe@example.com',
-    tel: '+234-903-601-331-5'
-  });
+  const [user, setUser] = useState("");
+  const userId = localStorage.getItem("userId");
+  // Fetch receiver profile
+
+
+  useEffect(() => {
+
+
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/users/${userId}`);
+        setUser(response.data);
+      } catch (error) {
+        console.error("Error fetching receiver profile:", error);
+      }
+    };
+
+    fetchUserProfile();
+  }, [userId]);
+  //   const [user, setUser] = useState({
+  //   name: 'John Doe',
+  //   location: 'New York, USA',
+  //   profilePicture: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+  //   email: 'john.doe@example.com',
+  //   tel: '+234-903-601-331-5'
+  // });
 
   const client = false;
   
@@ -43,11 +64,11 @@ export default function ClientProfile(){
         <div className="flex items-center mb-4 justify-evenly">
           <img
           className="object-cover w-56 h-56 mr-4 rounded-full md:h-72 md:w-72"
-          src={user.profilePicture}
+          src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
           alt="Profile"
           />
           <div className="flex flex-col gap-y-2">
-            <h1 className="text-6xl font-bold">{user.name}</h1>
+            <h1 className="text-6xl font-bold">{user.fname} {user.lname}</h1>
             <h1 className="text-xl">{user.location}</h1>
             <h1 className="text-xl">{user.email}</h1>
             <h1 className="text-xl">{user.tel}</h1>
